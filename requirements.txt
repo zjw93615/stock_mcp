@@ -1,0 +1,42 @@
+# -*- coding:utf-8 -*-
+
+# 数据处理
+pandas==2.2.0
+numpy==1.26.4
+
+# 股票数据
+yfinance==0.2.36
+
+# 图表生成
+matplotlib==3.10.6
+
+# API客户端
+requests>=2.32.5
+serpapi==0.1.5
+gnews==0.4.2
+
+# 数据验证和模型
+pydantic
+
+# LangChain相关 - 使用兼容版本
+langchain==1.0.2
+langchain-openai==1.0.1
+langchain-mcp-adapters>=0.1.0
+langchain-community==0.4
+
+dashscope
+
+# MCP相关
+mcp>=0.9.0
+mcp[cli]
+
+# 工具库
+python-dotenv==1.0.1
+python-dateutil==2.9.0
+
+# 日志和调试
+colorlog==6.8.2
+logger
+
+# 异步支持
+aiohttp>=3.8.0
