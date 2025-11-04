@@ -190,9 +190,9 @@ class MCPNewsTool(MCPBaseTool):
         news_data = None
 
         # 尝试多个新闻源
-        if self.news_api_key:
-            logger.info("尝试使用News API获取新闻...")
-            news_data = self._get_newsapi_news(ticker, limit)
+        # if self.news_api_key:
+        #     logger.info("尝试使用News API获取新闻...")
+        #     news_data = self._get_newsapi_news(ticker, limit)
 
         if not news_data or not news_data.get("news"):
             logger.info("使用Yahoo Finance获取新闻...")

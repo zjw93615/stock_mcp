@@ -3,6 +3,7 @@
 # 数据处理
 pandas==2.2.0
 numpy==1.26.4
+beautifulsoup4>=4.14.2
 
 # 股票数据
 yfinance==0.2.36
