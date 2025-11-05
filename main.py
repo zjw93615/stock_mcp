@@ -4,6 +4,8 @@ from qwen_agent.gui import WebUI
 from datetime import datetime
 from dotenv import load_dotenv
 
+from agents.split_task_agent import SplitTaskAgent
+
 load_dotenv()
 DASHSCOPE_API_KEY = os.getenv("OPENAI_API_KEY")
 print("DASHSCOPE_API_KEY", DASHSCOPE_API_KEY)
@@ -61,6 +63,12 @@ system = f"""你是一个专业的股票分析AI助手，专注于基于真实�
 tools = [
     {
         "mcpServers": {
+            "WebSearch": {
+                "type": "sse",
+                "url": "https://dashscope.aliyuncs.com/api/v1/mcps/WebSearch/sse",
+                # "auth": DASHSCOPE_API_KEY,
+                "headers": {"Authorization": f"Bearer {DASHSCOPE_API_KEY}"},
+            },
             "stock-analysis": {
                 "type": "stdio",
                 "command": "./.venv/bin/python",
@@ -72,12 +80,6 @@ tools = [
             #     # "auth": DASHSCOPE_API_KEY,
             #     "headers": {"Authorization": f"Bearer {DASHSCOPE_API_KEY}"},
             # },
-            "WebSearch": {
-                "type": "sse",
-                "url": "https://dashscope.aliyuncs.com/api/v1/mcps/WebSearch/sse",
-                # "auth": DASHSCOPE_API_KEY,
-                "headers": {"Authorization": f"Bearer {DASHSCOPE_API_KEY}"},
-            },
         }
     }
 ]
@@ -87,7 +89,7 @@ def main():
     # 创建助手实例
     bot = Assistant(
         llm=llm_cfg,
-        name="助手",
+        name="股票助手",
         system_message=system,
         function_list=tools,
     )

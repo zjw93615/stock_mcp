@@ -114,7 +114,7 @@ class MCPTechnicalAnalysisTool(MCPBaseTool):
                 )
 
             # 返回最近几天的技术指标
-            recent_data = hist.tail(10).copy()
+            recent_data = hist.tail(5).copy()
             technical_data = {
                 "ticker": ticker,
                 "calculation_period": {
