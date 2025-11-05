@@ -21,6 +21,14 @@ load_dotenv()
 # 获取日志记录器
 logger = get_logger()
 
+import os
+proxy = os.getenv("HTTP_PROXY")
+https_proxy = os.getenv("HTTPS_PROXY")
+if proxy:
+    os.environ['HTTP_PROXY'] = proxy
+if https_proxy:
+    os.environ['HTTPS_PROXY'] = https_proxy
+
 # 创建FastMCP应用
 mcp = FastMCP("stock-analysis")
 
@@ -103,16 +111,16 @@ async def get_news(ticker: str, limit: int = 10) -> Dict[str, Any]:
     return await tools["get_news"].execute(ticker=ticker, limit=limit)
 
 
-@mcp.tool()
-async def search_web_info(query: str, max_results: int = 5) -> Dict[str, Any]:
-    """
-    搜索网络信息
+# @mcp.tool()
+# async def search_web_info(query: str, max_results: int = 5) -> Dict[str, Any]:
+#     """
+#     搜索网络信息
 
-    Args:
-        query: 搜索查询
-        max_results: 最大结果数，默认5
-    """
-    return await tools["search_web_info"].execute(query=query, max_results=max_results)
+#     Args:
+#         query: 搜索查询
+#         max_results: 最大结果数，默认5
+#     """
+#     return await tools["search_web_info"].execute(query=query, max_results=max_results)
 
 
 @mcp.prompt()

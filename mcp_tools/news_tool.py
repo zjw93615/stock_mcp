@@ -49,19 +49,13 @@ class MCPNewsTool(MCPBaseTool):
             }
 
             for item in news:
+                content = item.get("content", {})
                 news_item = {
-                    "title": item.get("title", ""),
-                    "summary": item.get("summary", ""),
-                    "publisher": item.get("publisher", ""),
-                    "link": item.get("link", ""),
-                    "published_time": item.get("providerPublishTime", ""),
-                    "thumbnail": (
-                        item.get("thumbnail", {})
-                        .get("resolutions", [])[0]
-                        .get("url", "")
-                        if item.get("thumbnail", {}).get("resolutions")
-                        else ""
-                    ),
+                    "title": content.get("title", ""),
+                    "summary": content.get("summary", ""),
+                    "publisher": content.get("publisher", ""),
+                    "link": content.get("canonicalUrl", {}).get("url", ""),
+                    "published_time": content.get("pubDate", ""),
                 }
 
                 # 清理和验证数据

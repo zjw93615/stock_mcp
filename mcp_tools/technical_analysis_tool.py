@@ -114,7 +114,7 @@ class MCPTechnicalAnalysisTool(MCPBaseTool):
                 )
 
             # 返回最近几天的技术指标
-            recent_data = hist.tail(5).copy()
+            recent_data = hist.tail(10).copy()
             technical_data = {
                 "ticker": ticker,
                 "calculation_period": {
@@ -198,13 +198,13 @@ class MCPTechnicalAnalysisTool(MCPBaseTool):
             if not pd.isna(current["MA5"]) and not pd.isna(current["MA20"]):
                 analysis_summary["trend"] = {
                     "price_vs_ma5": (
-                        "上涨" if current["Close"] > current["MA5"] else "下跌"
+                        "上涨" if bool(current["Close"] > current["MA5"]) else "下跌"
                     ),
                     "price_vs_ma20": (
-                        "上涨" if current["Close"] > current["MA20"] else "下跌"
+                        "上涨" if bool(current["Close"] > current["MA20"]) else "下跌"
                     ),
                     "ma5_vs_ma20": (
-                        "多头排列" if current["MA5"] > current["MA20"] else "空头排列"
+                        "多头排列" if bool(current["MA5"] > current["MA20"]) else "空头排列"
                     ),
                 }
 
@@ -226,10 +226,10 @@ class MCPTechnicalAnalysisTool(MCPBaseTool):
             if not pd.isna(current["MACD"]) and not pd.isna(current["MACD_Signal"]):
                 analysis_summary["macd_analysis"] = {
                     "trend": (
-                        "看涨" if current["MACD"] > current["MACD_Signal"] else "看跌"
+                        "看涨" if bool(current["MACD"] > current["MACD_Signal"]) else "看跌"
                     ),
                     "histogram_trend": (
-                        "增强" if current["MACD_Histogram"] > 0 else "减弱"
+                        "增强" if bool(current["MACD_Histogram"] > 0) else "减弱"
                     ),
                 }
 
@@ -237,18 +237,18 @@ class MCPTechnicalAnalysisTool(MCPBaseTool):
             if not pd.isna(current["BB_Upper"]) and not pd.isna(current["BB_Lower"]):
                 bb_position = (
                     "上轨附近"
-                    if current["Close"] > current["BB_Upper"] * 0.98
+                    if bool(current["Close"] > current["BB_Upper"] * 0.98)
                     else (
                         "下轨附近"
-                        if current["Close"] < current["BB_Lower"] * 1.02
+                        if bool(current["Close"] < current["BB_Lower"] * 1.02)
                         else "中轨附近"
                     )
                 )
                 analysis_summary["bollinger_analysis"] = {
                     "position": bb_position,
-                    "squeeze": abs(current["BB_Upper"] - current["BB_Lower"])
+                    "squeeze": bool(abs(current["BB_Upper"] - current["BB_Lower"])
                     / current["BB_SMA"]
-                    < 0.1,
+                    < 0.1),
                 }
 
             technical_data["current_analysis"] = analysis_summary

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 DASHSCOPE_API_KEY = os.getenv("OPENAI_API_KEY")
+print("DASHSCOPE_API_KEY", DASHSCOPE_API_KEY)
 # LLM 配置
 llm_cfg = {
     "model": "qwen-plus",
@@ -62,18 +63,20 @@ tools = [
         "mcpServers": {
             "stock-analysis": {
                 "type": "stdio",
-                "command": "F:\python\stock_mcp\.venv\Scripts\python",
-                "args": ["F:\python\stock_mcp\mcp_server.py"],
+                "command": "./.venv/bin/python",
+                "args": ["mcp_server.py"],
             },
-            "WebParser": {
-                "type": "sse",
-                "url": "https://dashscope.aliyuncs.com/api/v1/mcps/WebParser/sse",
-                "headers": {"Authorization": "Bearer ${DASHSCOPE_API_KEY}"},
-            },
+            # "WebParser": {
+            #     "type": "sse",
+            #     "url": "https://dashscope.aliyuncs.com/api/v1/mcps/WebParser/sse",
+            #     # "auth": DASHSCOPE_API_KEY,
+            #     "headers": {"Authorization": f"Bearer {DASHSCOPE_API_KEY}"},
+            # },
             "WebSearch": {
                 "type": "sse",
                 "url": "https://dashscope.aliyuncs.com/api/v1/mcps/WebSearch/sse",
-                "headers": {"Authorization": "Bearer ${DASHSCOPE_API_KEY}"},
+                # "auth": DASHSCOPE_API_KEY,
+                "headers": {"Authorization": f"Bearer {DASHSCOPE_API_KEY}"},
             },
         }
     }
