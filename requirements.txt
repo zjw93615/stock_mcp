@@ -6,7 +6,8 @@ numpy==1.26.4
 beautifulsoup4>=4.14.2
 
 # 股票数据
-yfinance==0.2.36
+yfinance
+akshare
 
 # 图表生成
 matplotlib==3.10.6

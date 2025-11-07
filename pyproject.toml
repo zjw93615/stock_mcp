@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = "==3.11.9"
 dependencies = [
     "aiohttp>=3.8.0",
+    "akshare>=1.17.83",
     "colorlog==6.8.2",
     "dashscope",
     "gnews==0.4.2",
